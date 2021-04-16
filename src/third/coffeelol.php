@@ -31,7 +31,7 @@ hook::func("help", function($u) {
 	if (!isset($parv[1])) {
 		$gw->notice($nick,"!coffee         makes you a coffee lol");
 	}
-	elseif ($parv[1] == "op") {
+	elseif ($parv[1] == "!coffee") {
 		$gw->notice($nick,"Syntax: !coffee");
 	}
     return;
