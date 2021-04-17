@@ -124,7 +124,7 @@ while (1) {
 			}
 			elseif ($action == "001"){
 				hook::run("connect",array(
-					"nick" => $nick
+					"nick" => $nick)
 				);
 			}
 			elseif ($action == "PRIVMSG"){ 
