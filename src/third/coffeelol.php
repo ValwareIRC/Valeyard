@@ -3,21 +3,22 @@
 // This is an example module lol. coffee anyone?
 
 hook::func("privmsg", function($u){
+	
+	global $gw,$sql,$me;
 
     // convenience identifiers
     $nick = $u['nick'];
-    $parv = explode(" "$u['parc']);
+    $parv = explode(" ",$u['parc']);
     $cmd = $parv[0];
     $target = $u['dest'];
-
     // if it's a PM, ignore it
-    if ($target !== $me) { return; }
+    if ($target == $me) { return; }
 
     // if the user does not says "!coffee" ignore it and return safely
     if ($cmd !== "!coffee") { return; }
     
     // send the coffee lmao
-    $gw->msg($target,"Here you go! *makes ".$nick." a coffee!*")
+    $gw->msg($target,"Here you go! *makes ".$nick." a coffee!*");
     return;
 });
 
