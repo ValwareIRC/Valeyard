@@ -43,6 +43,9 @@
 ## *modules*
 
  If you want to install any modules, you can load them from within src/module.php
+ 
+ Example:
+ `include "third/ayyy.php";`
 
  please add underneath core files or your module may not work as expected.
  
