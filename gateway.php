@@ -123,7 +123,9 @@ while (1) {
 				$gw->shout('Sent our login credentials. Fingers crossed!');
 			}
 			elseif ($action == "001"){
-				hook::run("connect",NULL);
+				hook::run("connect",array(
+					"nick" => $nick
+				);
 			}
 			elseif ($action == "PRIVMSG"){ 
 				hook::run("privmsg",array(

@@ -11,8 +11,8 @@ hook::func("privmsg", function($u){
     $parv = explode(" ",$u['parc']);
     $cmd = $parv[0];
 
-    // return if not me lol
-    if ($nick !== $me) { return; }
+    // return if PM lol
+    if ($nick === $me) { return; }
 
     // return if cmd not !ayyy
     if ($cmd !== "!ayyy") { return; }
