@@ -5,6 +5,7 @@ class hook {
 
     private static $actions = array(
         'privmsg' => array(),
+        'connect' => array(),
         'notice' => array(),
 		'join' => array(),
 		'part' => array(),

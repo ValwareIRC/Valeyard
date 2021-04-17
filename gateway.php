@@ -122,6 +122,9 @@ while (1) {
 				$gw->sasl($me,$mypass);
 				$gw->shout('Sent our login credentials. Fingers crossed!');
 			}
+			elseif ($action == "001"){
+				hook::run("connect",NULL);
+			}
 			elseif ($action == "PRIVMSG"){ 
 				hook::run("privmsg",array(
 					"nick" => $nick,
