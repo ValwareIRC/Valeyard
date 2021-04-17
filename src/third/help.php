@@ -1,8 +1,19 @@
 <?php
+/*
+	create the "HELP" command and hook.
+	This module allows you to make your bot list its command when it gets a PM "help"
+	so if you want to make a module, you can easily specify the help shit in the module its for
 
-// create the "HELP" command and hook.
-// This module allows you to make your bot list its command when it gets a PM "help"
-// so if you want to make a module, you can easily specify the help shit in the module its for
+
+	syntax for hooking into help module:
+
+		hook::func("help, function($u){
+
+			$gw->do_some_shit();
+
+		});
+
+*/
 
 hook::func("privmsg", function($u){
 	
