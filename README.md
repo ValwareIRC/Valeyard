@@ -7,7 +7,7 @@
  sorry bout that! watch this space...
 
 
- ##instructions:
+ ## *instructions:
 
  $ `cd /home/`
 
@@ -40,7 +40,7 @@
  to detatch from the screen, press Ctrl+A and then Ctrl+D
 
 
-##modules
+## *modules
 
  If you want to install any modules, you can load them from within src/module.php
 
