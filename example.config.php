@@ -32,6 +32,9 @@ $cf = [
 	/* NickServ password */
 	'password' => 'SupahNickServPassWad123',
 	
+	/* Email used for NickServ */
+	'email' => 'bigfaps@pornhub.com',
+	
 	/* Oper shit. Will be partially useless if not oper. */
 	'opernick' => 'Oppah',
 	'operpass' => 'GangnamStyle123lmao',
