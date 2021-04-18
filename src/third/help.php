@@ -26,7 +26,7 @@ hook::func("privmsg", function($u){
 	
 	// if it's not for us, return it
 	
-	if ($cmd !== "help" || $cmd !== "!help") { return; }
+	if ($cmd !== "help" && $cmd !== "!help") { return; }
 	
 	if (!isset($parv[1])) {
 		$gw->notice($nick,"Listing commands available to you.");
