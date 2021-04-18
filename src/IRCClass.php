@@ -77,13 +77,19 @@ class Bot {
 	}
 	
 	// Main funcs imo tbh famalam lmoa
+	function quit($msg){ $this->sendraw("QUIT :".$msg); }
 	function msg($dest,$string){ $this->sendraw("PRIVMSG ".$dest." :".$string); }
+	function act($dest,$string){ $this->msg($dest,"ACTION ".$string.""); }
 	function notice($dest,$string){ $this->sendraw("NOTICE ".$dest." :".$string); }
-	function gline($nick,$time,$reason){ $this->sendraw("GLINE ".$dest." ".$time." ".$reason); }
+	function globalnotice($string){ $this->sendraw("NOTICE $* ".$string); }
+	function gline($nick,$time,$reason){ $this->sendraw("GLINE ".$nick." ".$time." ".$reason); }
+	function kline($nick,$time,$reason){ $this->sendraw("KLINE ".$nick." ".$time." ".$reason); }
 	function kill($nick,$reason){ $this->sendraw("KILL ".$nick." ".$reason); }
 	function join($chan){ $this->sendraw("JOIN ".$chan); }
 	function part($chan){ $this->sendraw("PART ".$chan); }
 	function samode($chan,$mode){ $this->sendraw("SAMODE ".$chan." ".$mode); }
+	function sajoin($nick,$chan){ $this->sendraw("SAJOIN ".$nick." ".$chan); }
+	function sapart($nick,$chan){ $this->sendraw("SAPART ".$nick." ".$chan); }
 	function mode($dest,$mode){ $this->sendraw("MODE ".$dest." ".$mode); }
 	function csmode($chan,$mode){ $this->cs("MODE ".$chan." ".$mode); }
 	function selfmode($mode){ global $me; $this->mode($me,$mode); }
