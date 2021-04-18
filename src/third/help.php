@@ -25,12 +25,12 @@ hook::func("privmsg", function($u){
 	$target = $u['dest'];
 	
 	// if it's not for us, return it
-	if ($target !== $me) { return; }
 	
-	if ($cmd !== "help") { return; }
+	if ($cmd !== "help" || $cmd !== "!help") { return; }
 	
 	if (!isset($parv[1])) {
 		$gw->notice($nick,"Listing commands available to you.");
+		$gw->notice($nick," ";
 		hook::run("help", $u);
 		$gw->notice($nick," ");
 		$gw->notice($nick,"For more information on a command, type /msg ".$me." HELP <command>");
