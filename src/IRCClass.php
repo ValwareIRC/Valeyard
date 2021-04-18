@@ -15,6 +15,15 @@ class Bot {
 	function __construct($server,$port,$nick,$ident,$gecos,$caps,$password) {
 		global $me;
 		$me = $nick;
+		hook::run("preconnect", array(
+			"nick" => $nick,
+			"server" => $server,
+			"port" => $port,
+			"ident" => $ident,
+			"gecos" => $gecos,
+			"caps" => $caps,
+			"password" => $password)
+		);
 		// INITIALISING CONNECT SEQUENCE lmao
 		$this->connect($server,$port,$nick,$ident,$gecos,$caps,$password);
 	
@@ -37,7 +46,10 @@ class Bot {
 		
 		// who the fuck are ya?!
 		$this->send_client_credentials($nick,$ident,$gecos);
-		$this->send_cap_req($caps,$nick,$password);
+		
+		hook::run("caps",array(
+			"caps" => $caps)
+		);
 		
 			
 		
@@ -51,22 +63,6 @@ class Bot {
 		$this->sendraw("NICK ".$nick);
 		$this->sendraw("USER ".$ident." 0 0 :".$gecos);
 		
-	}
-	private function send_cap_req($caps,$nick,$password){
-		if ($caps !== NULL) {
-			$cap = explode(" ",$caps);
-			for ($s = count($cap), $i = 0; $i < $s;){
-				$this->sendraw("CAP REQ :".$cap[$i]);
-				if (strtolower($cap[$i]) == 'sasl') {
-					$this->sendraw("AUTHENTICATE PLAIN");
-				}
-				$i++;
-			}
-			$this->sendraw('CAP END');
-		}
-	}
-	function sasl($nick,$password) {
-		$this->sendraw("AUTHENTICATE ".base64_encode(chr(0).$nick.chr(0).$password));
 	}
 	function sendraw($string){
 		// Declare de globals;
