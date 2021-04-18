@@ -130,6 +130,7 @@ while (1) {
 			elseif ($action == "PRIVMSG"){ 
 				hook::run("privmsg",array(
 					"nick" => $nick,
+					"ident" => $ident ?? 'NULL',
 					"hostmask" => $hostmask,
 					"dest" => $dest,
 					"parc" => $parc)
@@ -139,6 +140,7 @@ while (1) {
 				hook::run("privmsg",array(
 					"nick" => $nick,
 					"hostmask" => $hostmask ?? 'NULL',
+					"ident" => $ident ?? 'NULL',
 					"dest" => $dest,
 					"parc" => $parc)
 				);
@@ -146,6 +148,7 @@ while (1) {
 			elseif ($action == "JOIN"){
 				hook::run("join",array(
 					"nick" => $nick,
+					"ident" => $ident,
 					"hostmask" => $hostmask,
 					"dest" => $dest)
 				);
@@ -153,6 +156,7 @@ while (1) {
 			elseif ($action == "PART") {
 				hook::run("part",array(
 					"nick" => $nick,
+					"ident" => $ident,
 					"hostmask" => $hostmask,
 					"dest" => $dest)
 				);
@@ -160,11 +164,19 @@ while (1) {
 			elseif ($action == "QUIT") {
 				hook::run("quit",array(
 					"nick" => $nick,
+					"ident" => $ident,
 					"hostmask" => $hostmask,
 					"reason" => $parc)
 				);
 			}
 		}
+		
+		// variable cleanup.
+		$nick = NULL; $ident = NULL;
+		$hostmask = NULL; $parv = NULL;
+		$parc = NULL; $dest = NULL;
+		$cmd = NULL; $str = NULL;
+		$fullstr = NULL; $action = NULL;
 		
 	}
 }
