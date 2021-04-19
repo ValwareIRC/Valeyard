@@ -67,12 +67,11 @@ class Bot {
 				if (strtolower($cap[$i]) == 'sasl') {
 					$this->sendraw("AUTHENTICATE PLAIN");
 					$sasl = true;
-					
-					
+
 				}
 				$i++;
 			}
-			if (!$sasl) { $this->sendraw('CAP END'); }
+			if (!isset($sasl)) { $this->sendraw('CAP END'); }
 		}
 	}
 	function sasl($nick,$password) {
