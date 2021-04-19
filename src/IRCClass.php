@@ -28,8 +28,6 @@ class Bot {
 		$this->connect($server,$port,$nick,$ident,$gecos,$caps,$password);
 	
 	}
-	
-	// your local cotton-pickin' connect sequence fam
 	private function connect($server,$port,$nick,$ident,$gecos,$caps,$password) {
 		
 		// Declare de globals;
@@ -46,10 +44,7 @@ class Bot {
 		
 		// who the fuck are ya?!
 		$this->send_client_credentials($nick,$ident,$gecos);
-		
-		hook::run("caps",array(
-			"caps" => $caps)
-		);
+		$this->send_cap_req($caps,$nick,$password);
 		
 			
 		
@@ -63,6 +58,24 @@ class Bot {
 		$this->sendraw("NICK ".$nick);
 		$this->sendraw("USER ".$ident." 0 0 :".$gecos);
 		
+	}
+	private function send_cap_req($caps,$nick,$password){
+		if ($caps !== NULL) {
+			$cap = explode(" ",$caps);
+			for ($s = count($cap), $i = 0; $i < $s;){
+				$this->sendraw("CAP REQ :".$cap[$i]);
+				if (strtolower($cap[$i]) == 'sasl') {
+					$this->sendraw("AUTHENTICATE PLAIN");
+					
+				}
+				$i++;
+			}
+			$this->sendraw('CAP END');
+		}
+	}
+	function sasl($nick,$password) {
+		$this->shout($nick." ".$password);
+		$this->sendraw("AUTHENTICATE ".base64_encode(chr(0).$nick.chr(0).$password));
 	}
 	function sendraw($string){
 		// Declare de globals;
