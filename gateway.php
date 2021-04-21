@@ -1,7 +1,6 @@
 <?php
 include "src/module.php";
 include "gateway.config.php";
-//include "src/UKChatterbox/modules.php";
 
 global $cf,$sql,$gw,$sql,$sqlip,$sqluser,$sqlpass,$sqldb;
 
