@@ -116,11 +116,13 @@ while (1) {
 			**
 			*/
 			if ($fullstr == 'AUTHENTICATE +') {
-				hook::run("auth", NULL);
+				hook::run("auth", array("nick" => $nick));
 				$gw->hear('The server wants us to send our login credentials.');
 				$gw->sasl($me,$mypass);
 				$gw->shout('Sent our login credentials. Fingers crossed!');
 			}
+			// if we sasl'd, end cap req fam
+			elseif ($action == '903' && $parc = "SASL authentication successful") { $gw->sendraw("CAP END"); }
 			elseif ($action == "001"){
 				hook::run("connect",array(
 					"nick" => $nick)

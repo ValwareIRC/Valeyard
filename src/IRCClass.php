@@ -61,9 +61,10 @@ class Bot {
 	}
 	private function send_cap_req($caps,$nick,$password){
 		if ($caps !== NULL) {
+			
+			$this->sendraw("CAP REQ :".$caps);
 			$cap = explode(" ",$caps);
 			for ($s = count($cap), $i = 0; $i < $s;){
-				$this->sendraw("CAP REQ :".$cap[$i]);
 				if (strtolower($cap[$i]) == 'sasl') {
 					$this->sendraw("AUTHENTICATE PLAIN");
 					$sasl = true;
@@ -71,12 +72,11 @@ class Bot {
 				}
 				$i++;
 			}
-			if (!isset($sasl)) { $this->sendraw('CAP END'); }
+			//if (!isset($sasl)) { $this->sendraw('CAP END'); }
 		}
 	}
 	function sasl($nick,$password) {
 		$this->sendraw("AUTHENTICATE ".base64_encode(chr(0).$nick.chr(0).$password));
-		$this->sendraw('CAP END');
 	}
 	function sendraw($string){
 		// Declare de globals;

@@ -1,5 +1,4 @@
 <?php
-
 // This is an example module lol. coffee anyone?
 
 hook::func("privmsg", function($u){
@@ -11,6 +10,8 @@ hook::func("privmsg", function($u){
     $parv = explode(" ",$u['parc']);
     $cmd = $parv[0];
     $target = $u['dest'];
+	
+	
     // if it's a PM, ignore it
     if ($target == $me) { return; }
 
@@ -21,7 +22,6 @@ hook::func("privmsg", function($u){
     $gw->msg($target,"Here you go! *makes ".$nick." a coffee!*");
     return;
 });
-
 
 // the help hook which is from a /third module
 hook::func("help", function($u) {
