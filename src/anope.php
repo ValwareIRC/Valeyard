@@ -25,7 +25,7 @@ function IsAnopeUser($nick){
 	
 	$p = $cf['anopetable'];
 	
-	$query = "SELECT * FROM " .$p. "user WHERE nick = '".$nick."'";
+	$query = "SELECT * FROM " .$p. "NickCore WHERE display = '".$nick."'";
 	$result = $sql::query($query);
 	if (mysqli_num_rows($result) > 0) { $ind = true; }
 	else { $ind = false; }
@@ -34,7 +34,46 @@ function IsAnopeUser($nick){
 	return $ind;
 }
 
+function NSInfo($nick,$search){
+	
+	global $cf,$sql;
+	
+	$p = $cf['anopetable'];
+	
+	$query = "SELECT * FROM " .$p. "user WHERE nick = '".$nick."'";
+	$result = $sql::query($query);
+	if (mysqli_num_rows($result) > 0) { 
+		while($row = mysqli_fetch_assoc($result)){
+			$ind = $row[$search];
+
+	}
+	if (!$ind){ $ind = false; }
+	else { $ind = false; }
+	mysqli_free_result($result);
+	
+	return $ind;
+}
+function ns_test($nick){
+	global $gw;
+	$return = NSInfo($nick,"account");
+	if ($return){ $gw->msg("#lounge",$return); }
+	else { $gw->msg("#lounge","None" }
+}
 function IsAnopeChan($chan){
+	
+	global $cf,$sql;
+	
+	$p = $cf['anopetable'];
+	
+	$query = "SELECT * FROM " .$p. "ChannelInfo WHERE name = '".$chan."'";
+	$result = $sql::query($query);
+	if (mysqli_num_rows($result) > 0) { $ind = true; }
+	else { $ind = false; }
+	mysqli_free_result($result);
+	
+	return $ind;
+}
+function IsChan($chan){
 	
 	global $cf,$sql;
 	
@@ -334,7 +373,6 @@ function hostmask($nick){
 function fullhost($nick){
 	return $nick."!".ident($nick)."@".hostname($nick)."#".gecos($nick);
 }
-
 
 
 ?>
