@@ -45,19 +45,68 @@ function NSInfo($nick,$search){
 	if (mysqli_num_rows($result) > 0) { 
 		while($row = mysqli_fetch_assoc($result)){
 			$ind = $row[$search];
-
+		}
 	}
-	if (!$ind){ $ind = false; }
-	else { $ind = false; }
+	if (!isset($ind)){ $ind = false; }
 	mysqli_free_result($result);
-	
 	return $ind;
 }
-function ns_test($nick){
-	global $gw;
-	$return = NSInfo($nick,"account");
-	if ($return){ $gw->msg("#lounge",$return); }
-	else { $gw->msg("#lounge","None" }
+
+function IsAjoinEntry($nick,$chan){
+	
+	global $cf,$sql,$gw;
+	
+	$p = $cf['anopetable'];
+	
+	$query = "SELECT * FROM ".$p. "AJoinEntry WHERE channel = '$chan' AND owner = '$nick'";
+	$result = $sql::query($query);
+	if (mysqli_num_rows($result) > 0) {
+		$return = true;
+	}
+	else { $return = false; }
+	mysqli_free_result($result);
+	return $return;
+}
+
+function AddAjoinEntry($nick,$chan){
+	
+	global $cf,$sql,$gw;
+	
+	$p = $cf['anopetable'];
+	
+	$error = NULL;
+	
+	if (!IsAnopeUser($nick)){ $error = $nick." is not a registered user."; }
+	elseif (!IsAnopeChan($chan)){ $error = $chan." is not a registered channel."; }
+	elseif (IsAjoinEntry($nick,$chan)){ $error = $chan." is already in $nick's ajoin list."; }
+
+	if ($error) { $gw->hear($error); return $error; }
+	else {
+		
+		$query = "INSERT INTO ".$p. "AJoinEntry (channel, owner) VALUES ('$chan', '$nick')";
+		$sql::query($query);
+		return 1;
+	}
+}
+function DelAjoinEntry($nick,$chan){
+	
+	global $cf,$sql,$gw;
+	
+	$p = $cf['anopetable'];
+	
+	$error = NULL;
+	
+	if (!IsAnopeUser($nick)){ $error = $nick." is not a registered user."; }
+	elseif (!IsAnopeChan($chan)){ $error = $chan." is not a registered channel."; }
+	elseif (!IsAjoinEntry($nick,$chan)){ $error = $chan." is not in $nick's ajoin list."; }
+
+	if ($error) { $gw->hear($error); return $error; }
+	else {
+		
+		$query = "DELETE FROM ".$p. "AJoinEntry WHERE channel = '$chan' AND owner = '$nick'";
+		$sql::query($query);
+		return 1;
+	}
 }
 function IsAnopeChan($chan){
 	
@@ -376,7 +425,4 @@ function fullhost($nick){
 
 
 ?>
-		
-		
-		
 
