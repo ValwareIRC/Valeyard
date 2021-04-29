@@ -7,7 +7,7 @@ hook::func("privmsg", function($u){
 	
 	//set our glow-balls
 	global $gw;
-	$ns = new NickServ();
+
 	//get the nick that triggered this hook
 	$nick = $u['nick'];
 	
