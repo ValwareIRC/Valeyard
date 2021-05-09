@@ -78,8 +78,8 @@ hook::func("privmsg", function($u){
 	
 		if ($ctcp['ping'] == 0) { return; }
 		
-		else if ($ctcp['ping'] == 1) { CTCPReply($whereToSendTo,$u['parc']); }
-		else if (isset($ctcp['ping'])){ CTCPReply($whereToSendTo,$ctcp['parc']); }
+		else if ($ctcp['ping'] == 1) { CTCPReply($whereToSendTo,$params); }
+		else if (isset($ctcp['ping'])){ CTCPReply($whereToSendTo,$ctcp['ping']); }
 	}
 	else if ($parv[0] == "VERSION"){
 		
