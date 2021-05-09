@@ -57,9 +57,10 @@ function CTCPReply($nick,$string){
 
 hook::func("privmsg", function($u){
 	global $ctcp;
+	
 	// return early if it's not a CTCP
-	if (!IsCTCP($u['parc'])) { return; }
-	else { $params = IsCTCP($u['parc']); }
+	if (!($params = IsCTCP($u['parc']))) { return; }
+	
 	// grab their nick and where they sent it
 	$nick = $u['nick'];
 	$target = $u['dest'];
