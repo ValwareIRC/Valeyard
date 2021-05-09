@@ -74,7 +74,7 @@ hook::func("privmsg", function($u){
 	if ($parv[0] == "PING"){
 		
 		// if the second parv is not a number, return cos that's just fuckin weird
-		if (!is_int($parv[1])){ return; }
+		if (!is_numeric($parv[1])){ return; }
 	
 		if ($ctcp['ping'] == 0) { return; }
 		
