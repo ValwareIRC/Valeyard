@@ -2,6 +2,7 @@
 
 hook::func("privmsg", function($u){
 	global $gw,$sql;
+	$parv = explode(" ",$u['parc']);
 	$cmd = $parv[0];
 	
 	if ($cmd == "!stats"){
