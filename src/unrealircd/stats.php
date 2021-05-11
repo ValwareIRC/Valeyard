@@ -1,6 +1,6 @@
 <?php
 
-// command !stats
+// command !stats for examp0l
 
 hook::func("privmsg", function($u){
 	global $gw,$sql;
@@ -17,7 +17,15 @@ hook::func("privmsg", function($u){
 				$gw->msg($u['dest'],"Current users: ".$row['currentusers']);
 				$gw->msg($u['dest'],"Max users: ".$row['maxusers']);
 				$gw->msg($u['dest'],"Server uptime: ".$row['uptime']);
-				$gw->msg($u['dest'],"Channels formed: ".$row['channels']);
+				$gw->msg($u['dest'],"Channels formed: ".$row['channels']);				
+			}
+		}
+		$table = $prefix."channel";
+		$query = "SELECT * FROM $table";
+		$result = $sql::query($query);
+		if (mysqli_num_rows($result) > 0) {
+			while($row = mysqli_fetch_assoc($result)) {
+				$gw->msg($u['dest'],"Channel: ".$row['channel']." - Users: ".$row['usercount']." - Modes: ".$row['modes']);
 			}
 		}
 		mysqli_free_result($result);
@@ -32,13 +40,23 @@ hook::func("ping", function($u){
 hook::func("connect", function($u){
 	sendstatshit();
 });
+
 function sendstatshit(){
-	global $gw;
-	sqlGo();
+	global $gw,$cf,$sql;
+	sqlGo(); // SQL, I choose you! *throws PokSQLéball*
+	// clear 0p s0me tab0ls f0rst, you mor0n!
+
+	$prefix = $cf['unrealtable'] ?? "unreal_";
+	$query = "DELETE FROM ".$prefix."gstats WHERE id IS NOT NULL";
+	$sql::query($query);
+	$query = "DELETE FROM ".$prefix."cmdstat WHERE id IS NOT NULL";
+	$sql::query($query);
+	
 	// stats to grab, obviously, you idiot!
 	$gw->sendraw("LUSERS");
 	$gw->sendraw("STATS u");
 	$gw->sendraw("LIST");
+	// we wait until we have oper for cmdstat and gstats
 }
 hook::func("numeric", function($u){
 	// glow-balls
@@ -98,9 +116,64 @@ hook::func("numeric", function($u){
 		$query = "UPDATE $table SET topicby='$nick', topicset='$time' WHERE channel = '$chan'";
 		$sql::query($query);
 	}
-	
+	elseif ($n == 212){
+		$table = $prefix."cmdstat";
+		$cmd = $parv[3];
+		$count = $parv[4];
+		if (!IsUnrealCmdStat($cmd)){
+			
+			$query = "INSERT INTO $table (command, count) VALUES ('$cmd', '$count')";
+			
+		}
+		else {
+			
+			$query = "UPDATE $table count='$count' WHERE command='$cmd'";
+		}
+		$sql::query($query);
+	}
+	elseif ($n == 223 && $parv[3] === "G"){
+		$table = $prefix."gstats";
+		$mask = $parv[4];
+		$secondsRemaining = $parv[5];
+		$setSecondsAgo = $parv[6];
+		$setby = $parv[7];
+		$toTrim = "$parv[0] $parv[1] $parv[2] $parv[3] $parv[4] $parv[5] $parv[6] $parv[7] ";
+		$reason = ltrim(str_replace($toTrim,"",$u['parc']),":");
+		$query = "INSERT INTO $table (
+			mask,
+			setSecondsAgo,
+			secondsRemaining,
+			setby,
+			reason
+		) VALUES (
 		
+			'$mask',
+			'$setSecondsAgo',
+			'$secondsRemaining',
+			'$setby',
+			'$reason'
+		)";
+		
+		$sql::query($query);
+	}
+	elseif ($n == 381) { 
+		$gw->sendraw("STATS G");
+		$gw->sendraw("STATS M");
+	}
 });
+function IsUnrealCmdStat($cmd){
+	global $cf,$sql;
+	if (!isset($chan)) { return false; }
+	$prefix = $cf['unrealtable'] ?? "unreal_";
+	$query = "SELECT * FROM ".$prefix."cmdstat WHERE command = '$cmd'";
+	$result = $sql::query($query);
+	if (!isset($result) || !$result){ createCmdTable("cmdstat"); return false; }
+	if (mysqli_num_rows($result) > 0){ $return = true; }
+	else { $return = false; }
+	mysqli_free_result($result);
+	return $return;
+}
+	
 function IsUnrealChan($chan){
 	global $cf,$sql;
 	if (!isset($chan)) { return false; }
@@ -119,6 +192,8 @@ function sqlGo(){
 	
 	if (!checkSqlTableExists("stats")) { createStatsTable("stats"); }
 	if (!checkSqlTableExists("channel")) { createChanTable("channel"); }
+	if (!checkSqlTableExists("cmdstat")) { createCmdTable("cmdstat"); }
+	if (!checkSqlTableExists("gstats")) { createGstatTable("gstats"); }
 }
 	
 function checkSqlTableExists($table){
@@ -155,7 +230,7 @@ function createStatsTable($table){
 }
 
 function createChanTable($table){
-	global $sql;
+	global $sql,$cf;
 	if (!$table){ return; }
 	$prefix = $cf['unrealtable'] ?? "unreal_";
 	$table = $prefix.$table;
@@ -174,6 +249,36 @@ function createChanTable($table){
 	$sql::query($query);
 }
 
-
+function createCmdTable($table){
+	global $sql,$cf;
+	if (!$table){ return; }
+	$prefix = $cf['unrealtable'] ?? "unreal_";
+	$table = $prefix.$table;
+	
+	$query = "CREATE TABLE $table (
+		id INT(2) NOT NULL AUTO_INCREMENT,
+		command VARCHAR(30) NOT NULL,
+		count INT(18) NOT NULL,
+		PRIMARY KEY (id)
+	)";
+	$sql::query($query);
+}
+function createGstatTable($table){
+	global $sql,$cf;
+	if (!$table){ return; }
+	$prefix = $cf['unrealtable'] ?? "unreal_";
+	$table = $prefix.$table;
+	
+	$query = "CREATE TABLE $table (
+		id INT(2) NOT NULL AUTO_INCREMENT,
+		mask VARCHAR(360) NOT NULL,
+		setSecondsAgo VARCHAR(20) NOT NULL,
+		secondsRemaining VARCHAR(20) NOT NULL,
+		setby VARCHAR(360) NOT NULL,
+		reason VARCHAR(360) NOT NULL,
+		PRIMARY KEY (id)
+	)";
+	$sql::query($query);
+}
 
 ?>
