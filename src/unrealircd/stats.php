@@ -56,7 +56,8 @@ function sendstatshit(){
 	$gw->sendraw("LUSERS");
 	$gw->sendraw("STATS u");
 	$gw->sendraw("LIST");
-	// we wait until we have oper for cmdstat and gstats
+	$gw->sendraw("STATS G");
+	$gw->sendraw("STATS M");
 }
 hook::func("numeric", function($u){
 	// glow-balls
