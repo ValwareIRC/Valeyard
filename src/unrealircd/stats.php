@@ -47,16 +47,13 @@ function sendstatshit(){
 	// clear 0p s0me tab0ls f0rst, you mor0n!
 
 	$prefix = $cf['unrealtable'] ?? "unreal_";
-	$query = "DELETE FROM ".$prefix."gstats WHERE BLAH IS NOT NULL";
+	$query = "TRUNCATE TABLE ".$prefix."gstats";
 	$sql::query($query);
-	$query = "DELETE FROM ".$prefix."cmdstat WHERE BLAH IS NOT NULL;";
+	$query = "TRUNCATE TABLE ".$prefix."cmdstat";
 	$sql::query($query);
-	$query = "DELETE FROM ".$prefix."channel WHERE BLAH IS NOT NULL;";
+	$query = "TRUNCATE TABLE ".$prefix."channel";
 	$sql::query($query);
-	$query = "ALTER TABLE ".$prefix."gstats AUTO_INCREMENT='1';
-				ALTER TABLE ".$prefix."cmdstat AUTO_INCREMENT='1';
-				ALTER TABLE ".$prefix."channel AUTO_INCREMENT='1';";
-	$sql::query($query);
+	
 	
 	// stats to grab, obviously, you idiot!
 	$gw->sendraw("LUSERS");
