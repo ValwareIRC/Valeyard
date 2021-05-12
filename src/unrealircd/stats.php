@@ -47,11 +47,10 @@ function sendstatshit(){
 	// clear 0p s0me tab0ls f0rst, you mor0n!
 
 	$prefix = $cf['unrealtable'] ?? "unreal_";
-	$query = "TRUNCATE TABLE ".$prefix."gstats";
-	$sql::query($query);
-	$query = "TRUNCATE TABLE ".$prefix."cmdstat";
-	$sql::query($query);
-	$query = "TRUNCATE TABLE ".$prefix."channel";
+	$query = "TRUNCATE TABLE ".$prefix."gstats;\n";
+	$query .= "TRUNCATE TABLE ".$prefix."cmdstat;\n";
+	$query .= "TRUNCATE TABLE ".$prefix."channel;\n";
+	$query .= "TRUNCATE TABLE ".$prefix."shuns;";
 	$sql::query($query);
 	
 	
@@ -61,6 +60,7 @@ function sendstatshit(){
 	$gw->sendraw("LIST");
 	$gw->sendraw("STATS G");
 	$gw->sendraw("STATS M");
+	$gw->sendraw("STATS s");
 }
 hook::func("numeric", function($u){
 	// glow-balls
@@ -135,8 +135,11 @@ hook::func("numeric", function($u){
 		}
 		$sql::query($query);
 	}
-	elseif ($n == 223 && $parv[3] === "G"){
-		$table = $prefix."gstats";
+	elseif ($n == 223){
+		if ($parv[3] == "G") { $stat = "gstats"; }
+		elseif($parv[3] == "s"){ $stat = "shuns"; }
+		
+		$table = $prefix.$stat;
 		$mask = $parv[4];
 		$secondsRemaining = $parv[5];
 		$setSecondsAgo = $parv[6];
@@ -163,6 +166,7 @@ hook::func("numeric", function($u){
 	elseif ($n == 381) { 
 		$gw->sendraw("STATS G");
 		$gw->sendraw("STATS M");
+		$gw->sendraw("STATS s");
 	}
 });
 function IsUnrealCmdStat($cmd){
@@ -198,6 +202,7 @@ function sqlGo(){
 	if (!checkSqlTableExists("channel")) { createChanTable("channel"); }
 	if (!checkSqlTableExists("cmdstat")) { createCmdTable("cmdstat"); }
 	if (!checkSqlTableExists("gstats")) { createGstatTable("gstats"); }
+	if (!checkSqlTableExists("shuns")) { createGstatTable("shuns"); }
 }
 	
 function checkSqlTableExists($table){
