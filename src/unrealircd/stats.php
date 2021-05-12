@@ -47,10 +47,13 @@ function sendstatshit(){
 	// clear 0p s0me tab0ls f0rst, you mor0n!
 
 	$prefix = $cf['unrealtable'] ?? "unreal_";
-	$query = "TRUNCATE TABLE ".$prefix."gstats;\n";
-	$query .= "TRUNCATE TABLE ".$prefix."cmdstat;\n";
-	$query .= "TRUNCATE TABLE ".$prefix."channel;\n";
-	$query .= "TRUNCATE TABLE ".$prefix."shuns;";
+	$query = "TRUNCATE TABLE ".$prefix."gstats";
+	$sql::query($query);
+	$query = "TRUNCATE TABLE ".$prefix."cmdstat";
+	$sql::query($query);
+	$query = "TRUNCATE TABLE ".$prefix."channel";
+	$sql::query($query);
+	$query = "TRUNCATE TABLE ".$prefix."shuns";
 	$sql::query($query);
 	
 	
