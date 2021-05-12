@@ -3,6 +3,7 @@ __This module provides SQL regularly updated stats for unrealircd__
 _Tables_
 - channel (channel information)
 - gstats (glines)
+- shuns
 - cmdstat (command statistics)
 - stats (general server stats)
 
