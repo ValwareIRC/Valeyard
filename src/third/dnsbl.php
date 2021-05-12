@@ -37,6 +37,7 @@ hook::func("notice", function($u){
 	
 	// let the opers know
 	$gw->sendraw("GLOBOPS DNSBL SCAN: $user ($ip) matched $dnsbl");
+	return;
 });
 	
 	
