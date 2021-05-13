@@ -53,7 +53,7 @@
  
  *Please keep in mind this is a work in progress*
 
-Working example: [irc.valware.uk #gateway](ircs://irc.valware.uk/#gateway)
+Working example: [irc.valware.uk #gateway](irc://irc.valware.uk/#gateway)
 
 If you are using my code, I love you soooooo MUCH.
 
