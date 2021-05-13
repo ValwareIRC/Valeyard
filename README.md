@@ -53,6 +53,8 @@
  
  *Please keep in mind this is a work in progress*
 
+Working example: [irc.valware.uk #gateway](irc://irc.valware.uk/#gateway)
+
 If you are using my code, I love you soooooo MUCH.
 
 Please feel free to leave any feedback, ideas or even advice in my email:
