@@ -2,9 +2,11 @@
  
  A bot written in PHP which attempts to link IRC with SQL database, allowing for integration between platforms.
 
- So far only supports UnrealIRCd and the config is set up to use wordpress with profilegrid installed.
+ So far this bot supports:
+  - Reading and writing to Anope SQLdb tables (Anope + db_sql/db_sql_live required)
+  - Writing various stats and information from UnrealIRCd to its own SQL tables
+  - Reading and writing to WordPress SQLdb user tables (more to come)
 
- sorry bout that! watch this space...
 
 
  ## *instructions:*
@@ -50,3 +52,11 @@
  please add underneath core files or your module may not work as expected.
  
  *Please keep in mind this is a work in progress*
+
+If you are using my code, I love you soooooo MUCH.
+
+Please feel free to leave any feedback, ideas or even advice in my email:
+
+v.a.pond@outlook.com
+
+Stay awesome!
