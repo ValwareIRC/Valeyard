@@ -74,27 +74,23 @@ $cf = [
 
 	/* Table where the users capabilities can be found */
 	'sql_clicap' => 'capabilities',
-
-	/* NOTE: The following is for GateWay's own internal records, not part of WordPress */
-	/* You don't need to edit these unless you REALLY know what you're doing */
-
-	/* GateWay's database */
-	'gwdb' => 'sql_gw_db',
-
-	'gwdb_user' => 'sql_gw_db_user',
-	'gwdb_pass' => 'sql_gw_db_password_123_lmao',
-	
-	/* GateWay's personal user table */
-	'gateway_userdb' => 'gateway_userdb',
-
-	/* GateWay's personal channels table */
-	'gateway_chandb' => 'gateway_chandb',
-
-	/* Warn/Kick/Ban table */
-	'wkbs' => 'wkbs',
-
 	
 	/* OTHER settings */
+	
+	/* Anope SQL table prefix */
+	//'anopetable' => 'anope_',
+	
+	/* WordPress SQL table prefix */
+	//'wp-prefix' => 'wp_',
+	
+	/*	UnrealIRCd SQL table prefix
+		Uncomment this line if you have SQL set up correctly and want SQL stats from
+		your UnrealIRCd server.
+		
+		Check out src/unrealircd for more details
+	*/
+	//'unrealtable' => 'unreal_',
+	
 	
 	/* modes for GateWay to set on connect */
 	'modes_on_connect' => '+iwx',
