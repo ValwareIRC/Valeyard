@@ -11,7 +11,7 @@
 
  $ `cd /home/`
 
- $ `git clone https://github.com/ValwareIRC/IRC-SQL-GateWay.git`
+ $ `git clone https://github.com/ValwareIRC/Valeyard.git`
 
  $ `cp example.config.php gateway.config.php`
 
@@ -33,7 +33,7 @@
 
  $ `screen -r`
 
- when inside the screen, navigate to /home/IRC-SQL-GateWay/ and run
+ when inside the screen, navigate to /home/Valeyard and run
 
  $ `php gateway.php`
 
