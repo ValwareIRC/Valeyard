@@ -7,12 +7,12 @@ to use db_sql or db_sql_live. For information, [click here](https://wiki.anope.o
 
 Add the following line in src/modules.php
 
-include "src/anope/anope.php";
+`include "src/anope/anope.php";`
 
 
 Add the following line in your gateway.config.php according to your anope tables prefix
 
-'anopetable' => 'anope_',
+`'anopetable' => 'anope_',`
 
 restart ya bot
 

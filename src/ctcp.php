@@ -5,7 +5,7 @@ global $ctcp;
 $ctcp = [
 
 	// the version lol
-	"version" => "IRCSQLGW 0.1-beta",
+	"version" => "Valeyard 0.1.2-beta",
 	
 	//ping is 1 for true or 0 for false, or choose your own (use "quoted string")
 	"ping" => 1,

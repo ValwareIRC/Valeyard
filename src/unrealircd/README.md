@@ -10,13 +10,13 @@ _Tables_
 
 Add the following line in src/modules.php
 
-include "src/unrealircd/unrealircd.php";
+`include "src/unrealircd/unrealircd.php";`
 
 
 
 Add the following line in your gateway.config.php
 
-'unrealtable' => 'unreal_',
+`'unrealtable' => 'unreal_',`
 
 
 restart ya bot
