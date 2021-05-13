@@ -1,4 +1,4 @@
-__This module provides SQL integration with wordpress tables__
+__This module provides SQL integration with [WordPress](https://wordpress.com) tables__
 
 
 Add the following line in src/modules.php

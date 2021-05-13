@@ -1,4 +1,4 @@
-__This module provides SQL regularly updated stats for unrealircd__
+__This module provides SQL regularly updated stats for [UnrealIRCd](https://unrealircd.org)__
 
 _Tables_
 - channel (channel information)
