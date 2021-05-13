@@ -3,9 +3,9 @@
  A bot written in PHP which attempts to link IRC with SQL database, allowing for integration between platforms.
 
  So far this bot supports:
-  - Reading and writing to Anope SQLdb tables (Anope + db_sql/db_sql_live required)
-  - Writing various stats and information from UnrealIRCd to its own SQL tables
-  - Reading and writing to WordPress SQLdb user tables (more to come)
+  - [Reading and writing to Anope SQLdb tables (Anope + db_sql/db_sql_live required)](https://github.com/ValwareIRC/Valeyard/tree/main/src/anope)
+  - [Writing various stats and information from UnrealIRCd to its own SQL tables](https://github.com/ValwareIRC/Valeyard/tree/main/src/unrealircd)
+  - [Reading and writing to WordPress SQLdb user tables (more to come)](https://github.com/ValwareIRC/Valeyard/tree/main/src/wordpress)
 
 
 
