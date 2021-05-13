@@ -8,7 +8,7 @@ include "src/wordpress/wordpress.php";
 
 Add the following line in your gateway.config.php according to your wordpress tables prefix
 
-'wpprefix' => 'wp_',
+'wp-prefix' => 'wp_',
 
 restart ya bot
 
