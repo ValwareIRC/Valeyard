@@ -61,7 +61,7 @@ function CTCPReply($nick,$string){
 }
 
 hook::func("privmsg", function($u){
-	global $ctcp;
+	global $ctcp,$me;
 	
 	// return early if it's not a CTCP
 	if (!($params = IsCTCP($u['parc']))) { return; }
@@ -71,7 +71,7 @@ hook::func("privmsg", function($u){
 	$target = $u['dest'];
 
 	// figure out if it's sent as a channel CTCP or directly
-	$whereToSendTo = ($target[0] == "#") ? $target : $nick;
+	$whereToSendTo = ($target != $me) ? $target : $nick;
 	
 	// splittem up
 	$parv = explode(" ",$params);
