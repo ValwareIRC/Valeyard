@@ -1,12 +1,16 @@
 <?php
 
-// oper on connect yo
+// oper on mode +r yo (in case you can't oper until identified (even with sasl) because of missing +r
 // make sure your oper credentials 'opernick' and 'operpass' are set in gateway.config.php
-hook::func("connect", function($u){
+hook::func("mode", function($u){
+	
+    global $gw,$cf,$me;
 
-    global $gw,$cf;
-
-    //check the config
+	$target = $u['dest'];
+	if ($target != $me){ return; }
+	$parv = explode(" ",$u['parc']);
+	if ($parv[0] != "+r"){ return; }
+	//check the config
     $opernick = $cf['opernick'];
     $operpass = $cf['operpass'];
 
