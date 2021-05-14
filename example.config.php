@@ -18,7 +18,7 @@ $cf = [
 	/* IRC  Bot details */
 
 	/* Bot Username */
-	'nick' => 'test',
+	'nick' => 'Valeyard',
 
 	/* The part of the vhost that says ident@hostmask */
 	'ident' => 'bot', 
