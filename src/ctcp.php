@@ -24,6 +24,11 @@ function IsCTCP($string){
 	// grab the first and last chars
 	$first = $string[0];
 	$last = substr($string,-1);
+	$parv = explode(" ",$u['parc']);
+	
+	$action = chr(1)."ACTION";
+	
+	if ($parv[0] == $action) { return false; }
 	
 	// if they are wrapped in chr(1) which means it's a CTCP
 	if ($first == chr(1) && $last == chr(1)) {
@@ -32,7 +37,7 @@ function IsCTCP($string){
 		return trim($string,chr(1));
 	}
 	// if it was not a CTCP, lettem kn0
-	else { return NULL; }
+	else { return false; }
 }
 
 // Syntax example, CTCP($nick,"VERSION");
@@ -109,8 +114,3 @@ hook::func("privmsg", function($u){
 });
 
 ?>
-
-		
-		
-	
-	
