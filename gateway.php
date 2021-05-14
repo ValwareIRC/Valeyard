@@ -1,7 +1,8 @@
 <?php
-global $cf,$sql,$gw,$sql,$sqlip,$sqluser,$sqlpass,$sqldb;
 include "src/module.php";
 include "gateway.config.php";
+global $cf,$sql,$gw,$sql,$sqlip,$sqluser,$sqlpass,$sqldb;
+
 // Server config
 $server = $cf['serverip'];
 $port = $cf['port'];
@@ -24,7 +25,6 @@ start:
 
 $gw = new Bot($server,$port,$me,$myident,$mygecos,$caps,$mypass);
 $sql = new SQL($sqlip,$sqluser,$sqlpass,$sqldb);
-$ns = new NickServ();
 
 while (1) {
 	while ($input = fgets($socket, 300)) {
@@ -180,6 +180,7 @@ while (1) {
 					"nick" => $nick,
 					"ident" => $ident,
 					"hostmask" => $hostmask,
+					"dest" => $dest,
 					"parc" => $parc)
 				);
 			}
