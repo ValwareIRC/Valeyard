@@ -1,9 +1,7 @@
 <?php
+global $cf,$sql,$gw,$sql,$sqlip,$sqluser,$sqlpass,$sqldb;
 include "src/module.php";
 include "gateway.config.php";
-
-global $cf,$sql,$gw,$sql,$sqlip,$sqluser,$sqlpass,$sqldb;
-
 // Server config
 $server = $cf['serverip'];
 $port = $cf['port'];
@@ -26,10 +24,11 @@ start:
 
 $gw = new Bot($server,$port,$me,$myident,$mygecos,$caps,$mypass);
 $sql = new SQL($sqlip,$sqluser,$sqlpass,$sqldb);
+$ns = new NickServ();
 
 while (1) {
 	while ($input = fgets($socket, 300)) {
-		echo $input;
+		if ($cf['debugmode'] == "on") { echo $input; }
 		flush();
 		
 		$strippem = ircstrip(str_replace('\n','',str_replace('\r','',$input)));
@@ -40,6 +39,7 @@ while (1) {
 		
 			// Ping it back
 			$gw->sendraw("PONG ".$splittem[1]);
+			hook::run("ping", array("ping" => $splittem[1]));
 			
 		}
 		elseif ($splittem[0] == 'ERROR') {
@@ -115,6 +115,11 @@ while (1) {
 			**	A $warning will be outputted in your 'statchan' and the console and logged.
 			**
 			*/
+			// we gonna forward the whole string to the num4ric h00k
+			if (is_numeric($action)) {
+				hook::run("numeric", array("numeric" => $action, "parc" => $fullstr));
+			}
+				
 			if ($fullstr == 'AUTHENTICATE +') {
 				hook::run("auth", array("nick" => $nick));
 				$gw->hear('The server wants us to send our login credentials.');
@@ -138,7 +143,7 @@ while (1) {
 				);
 			}
 			elseif ($action == "NOTICE"){ 
-				hook::run("privmsg",array(
+				hook::run("notice",array(
 					"nick" => $nick,
 					"hostmask" => $hostmask ?? 'NULL',
 					"ident" => $ident ?? 'NULL',
@@ -168,6 +173,14 @@ while (1) {
 					"ident" => $ident,
 					"hostmask" => $hostmask,
 					"reason" => $parc)
+				);
+			}
+			elseif ($action == "MODE") {
+				hook::run("mode",array(
+					"nick" => $nick,
+					"ident" => $ident,
+					"hostmask" => $hostmask,
+					"parc" => $parc)
 				);
 			}
 		}
