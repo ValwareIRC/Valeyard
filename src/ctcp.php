@@ -21,10 +21,14 @@ $ctcp = [
 
 function IsCTCP($string){
 	
+	// if we have no params, 
+	if (!$string) { return; }
+	
 	// grab the first and last chars
 	$first = $string[0];
 	$last = substr($string,-1);
-	$parv = explode(" ",$u['parc']);
+	
+	$parv = explode(" ",$string);
 	
 	$action = chr(1)."ACTION";
 	
