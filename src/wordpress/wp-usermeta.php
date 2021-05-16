@@ -77,27 +77,32 @@ function WPUserMetaDescription($user_id){
 }
 
 function WPUserMetaUserLevel($user_id){
+	// find our prefix
+	$prefix = $cf['wp-prefix'] ?? "wp_";
 	
 	// if you didn't use the correct paramaters, you mor0n
 	if (!$user_id){ return; }
 	
-	if (!($return = WPUserMeta($user_id,"wp_user_level"))){ return NULL; }
+	if (!($return = WPUserMeta($user_id,$prefix."user_level"))){ return NULL; }
 	else { return $return; }
 }
 
 function WPUserMetaCapabilities($user_id){
+	// find our prefix
+	$prefix = $cf['wp-prefix'] ?? "wp_";
 	
 	$capabilities = NULL;
 	// if you didn't use the correct paramaters, you mor0n
 	if (!$user_id){ return; }
 	
-	$string = explode(":",WPUserMeta($user_id,"wp_capabilities"));
+	$string = explode(":",WPUserMeta($user_id,$prefix."capabilities"));
 	
 	foreach ($string as $eval){
 		if (strpos($eval,chr(34)) !== false){
 			$capabilities .= get_string_between($eval,chr(34),chr(34))." ";
 		}
 	}
+
 	if (!$capabilities){ return; }
 	
 	$capabilities = rtrim($capabilities," ");
@@ -106,4 +111,3 @@ function WPUserMetaCapabilities($user_id){
 }
 
 ?>
-
