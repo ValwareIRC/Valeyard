@@ -26,7 +26,13 @@ function IsServer($data){
 }
 	
 
-
+function notification($string){
+	global $cf,$gw;
+	if(!$string){ return; }
+	
+	if ($cf['statschan']){ $gw->msg($cf['statschan'],$string); }
+	$gw->hear($string);
+}
 
 
 ?>
