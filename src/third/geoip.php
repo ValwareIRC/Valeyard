@@ -1,17 +1,17 @@
 <?php
 
 /*---------------------------------------------------------------------------
-|	GEOIP module by Valware													|
-|																			|
-|	To use functionality of this, check the bottom three functions.			|
-|	To enable setting the IP location in an swhois (this hook func below),	|
-|	add in this line to your gateway.config.php:							|
-|																			|
-|	'geoip_swhois' => 'on',													|
-|																			|
-|	You can still use the GEOIP functions elsewhere if you don't want the 	|
-|	swhois feature.															|
-|---------------------------------------------------------------------------*/
+	GEOIP module by Valware													
+																			
+	To use functionality of this, check the bottom three functions.			
+	To enable setting the IP location in an swhois (this hook func below),	
+	add in this line to your gateway.config.php:							
+																			
+	'geoip_swhois' => 'on',													
+																			
+	You can still use the GEOIP functions elsewhere if you don't want the 	
+	swhois feature.															
+---------------------------------------------------------------------------*/
 
 
 
@@ -52,14 +52,14 @@ hook::func("notice", function($u){
 	if (!($location = $city.$country)){ return; }
 	
 	/*----------------------------------------------------------------------
-	|	this next line sets an swhois line on the user with their location	|
-	|	using my module third/chgswhois - downloadable to unrealircd from	|
-	|	https://modules.unrealircd.org										|
-	|	or, you can run this from your unrealircd/ directory via SSH:		|
-	|	./unrealircd module install third/chgswhois							|
-	|	OR you can just change this line to do something else like CHGNAME	|
-		OR something else entirely, up to you :)							|
-	|-----------------------------------------------------------------------*/
+		this next line sets an swhois line on the user with their location	
+		using my module third/chgswhois - downloadable to unrealircd from	
+		https://modules.unrealircd.org										
+		or, you can run this from your unrealircd/ directory via SSH:		
+		./unrealircd module install third/chgswhois							
+		OR you can just change this line to do something else like CHGNAME	
+		OR something else entirely, up to you :)							
+	-----------------------------------------------------------------------*/
 	
 	$gw->sendraw("CHGSWHOIS $user is connecting from $location");
 	
