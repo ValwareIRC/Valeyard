@@ -77,6 +77,7 @@ function WPUserMetaDescription($user_id){
 }
 
 function WPUserMetaUserLevel($user_id){
+	global $cf;
 	// find our prefix
 	$prefix = $cf['wp-prefix'] ?? "wp_";
 	
@@ -88,6 +89,7 @@ function WPUserMetaUserLevel($user_id){
 }
 
 function WPUserMetaCapabilities($user_id){
+	global $cf;
 	// find our prefix
 	$prefix = $cf['wp-prefix'] ?? "wp_";
 	
@@ -96,7 +98,6 @@ function WPUserMetaCapabilities($user_id){
 	if (!$user_id){ return; }
 	
 	$string = explode(":",WPUserMeta($user_id,$prefix."capabilities"));
-	
 	foreach ($string as $eval){
 		if (strpos($eval,chr(34)) !== false){
 			$capabilities .= get_string_between($eval,chr(34),chr(34))." ";
@@ -111,3 +112,4 @@ function WPUserMetaCapabilities($user_id){
 }
 
 ?>
+
