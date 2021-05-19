@@ -39,15 +39,16 @@ class Bot {
 		
 		/* pre connect shit */
 		
+		// we are disabling verification for now until built upon more :>
+		// create ssl context
 		$context = stream_context_create(['ssl' => [
 			'verify_peer' => false,
 			'ciphers' => 'ECDHE-ECDSA-AES256-GCM-SHA384'
 		]]);
 
+		//opening socket YO
 		$socket = stream_socket_client($server.':'.$port, $errno, $errstr, 30, STREAM_CLIENT_CONNECT, $context);
 		
-		// Opening connection YO
-		//$socket = fsockopen($server, $port); // Open connection
 		
 		// Anything after we open the connection
 		
