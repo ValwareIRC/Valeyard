@@ -1,7 +1,7 @@
 <?php
 
 /*
-	Example module
+	Example module to show integration between Anope and Wordpress and printed on IRC
 	
 	This module does several things:
 		- Checks if the requester is logged into a NickServ account.
