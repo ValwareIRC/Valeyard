@@ -7,6 +7,8 @@
 	
 	$snotRag = new Bot("127.0.0.1","6667","Username","ident","lmao.pornhub.com","I am a bot lmao","sasl away-notify");
 	
+	
+ Big thanks to OmerAti and Jobe for helping to get secure connections working
 */
 
 class Bot {
@@ -37,8 +39,15 @@ class Bot {
 		
 		/* pre connect shit */
 		
+		$context = stream_context_create(['ssl' => [
+			'verify_peer' => false,
+			'ciphers' => 'ECDHE-ECDSA-AES256-GCM-SHA384'
+		]]);
+
+		$socket = stream_socket_client($server.':'.$port, $errno, $errstr, 30, STREAM_CLIENT_CONNECT, $context);
+		
 		// Opening connection YO
-		$socket = fsockopen($server, $port); // Open connection
+		//$socket = fsockopen($server, $port); // Open connection
 		
 		// Anything after we open the connection
 		
