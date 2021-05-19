@@ -26,7 +26,7 @@ start:
 $gw = new Bot($server,$port,$me,$myident,$mygecos,$caps,$mypass);
 $sql = new SQL($sqlip,$sqluser,$sqlpass,$sqldb);
 
-while (1) {
+while ($socket) {
 	while ($input = fgets($socket, 300)) {
 		if ($cf['debugmode'] == "on") { echo $input; }
 		flush();
