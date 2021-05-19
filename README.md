@@ -9,38 +9,9 @@
 
 
 
- ## *instructions:*
+## Installation
 
- $ `cd /home/`
-
- $ `git clone https://github.com/ValwareIRC/Valeyard.git`
-
- $ `cp example.config.php gateway.config.php`
-
- $ `nano gateway.config.php`
-
- Config should be pretty self-explanatory
-
- Ctrl+X, Y to save
-
-
-
- GateWay should always be run from a screen with non-root priviledges using PHP-CLI
-
- You can start a screen like this:
-
- $ `screen`
-
- You can resume the screen like this:
-
- $ `screen -r`
-
- when inside the screen, navigate to /home/Valeyard and run
-
- $ `php gateway.php`
-
- to detatch from the screen, press Ctrl+A and then Ctrl+D
-
+For installation instructions, [check out this Wiki page](https://github.com/ValwareIRC/Valeyard/wiki/Installation)
 
 ## *modules*
 
