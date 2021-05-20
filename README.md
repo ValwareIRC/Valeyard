@@ -24,7 +24,7 @@ For installation instructions, [check out this Wiki page](https://github.com/Val
  
  *Please keep in mind this is a work in progress*
 
-Working example: [irc.valware.uk #gateway](irc://irc.valware.uk/#gateway)
+Working example: irc.valware.uk #Valeyard
 
 If you are using my code, I love you soooooo MUCH.
 
