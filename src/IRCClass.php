@@ -53,8 +53,9 @@ class Bot {
 		// Anything after we open the connection
 		
 		// who the fuck are ya?!
+
+		$this->send_cap_ls();
 		$this->send_client_credentials($nick,$ident,$gecos);
-		$this->send_cap_req($caps,$nick,$password);
 		
 			
 		
@@ -69,23 +70,51 @@ class Bot {
 		$this->sendraw("USER ".$ident." 0 0 :".$gecos);
 		
 	}
-	private function send_cap_req($caps,$nick,$password){
+	private function send_cap_ls(){
+		$this->sendraw("CAP LS 302");
+	}
+	function send_cap_req($caps){
+		
+		//glow-balls
+		global $me,$cf;
+		
+		// make sure we got a param, you mor0n
 		if ($caps !== NULL) {
 			
-			$this->sendraw("CAP REQ :".$caps);
-			$cap = explode(" ",$caps);
-			for ($s = count($cap), $i = 0; $i < $s;){
-				if (strtolower($cap[$i]) == 'sasl') {
-					$this->sendraw("AUTHENTICATE PLAIN");
+			// what the caps in the config are
+			$ours = $cf['caps'];
+			
+			// make sure variables are free
+			$sendCaps = NULL;
+			$sasl = NULL;
+			
+			// separate de caps
+			$cap = explode(" ",$ours);
+			
+			// Welcome to CAPS Loop-Thru, can I take your order
+			for ($s = count($cap), $i = 0; $i < $s; $i++){
+				
+				// check each cap to make sure it is availab0l in the servers available CAPs, if not don't add it to request list
+				if (strpos($caps,$cap[$i]) !== false){ $sendCaps .= $cap[$i]." "; }
+				
+				// remember if we are sasl
+				if ($cap[$i] == 'sasl') {
 					$sasl = true;
-
 				}
-				$i++;
 			}
-			//if (!isset($sasl)) { $this->sendraw('CAP END'); }
+			// if we want any of the caps they got, pop the CAP in they ass
+			if ($sendCaps){ $this->sendraw("CAP REQ :$sendCaps"); return; }
+			
+			// if  we didn't sasl, end the CAPs requestch
+			if (!$sasl) { $this->sendraw('CAP END'); }
+			
+			// or we are sasl, so we authenticate!
+			else { 	$this->sendraw("AUTHENTICATE PLAIN"); }
+
 		}
 	}
 	function sasl($nick,$password) {
+		//send the b64 encoded credentialés
 		$this->sendraw("AUTHENTICATE ".base64_encode(chr(0).$nick.chr(0).$password));
 	}
 	function sendraw($string){

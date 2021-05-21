@@ -127,6 +127,11 @@ while ($socket) {
 				$gw->shout('Sent our login credentials. Fingers crossed!');
 			}
 			// if we sasl'd, end cap req fam
+			
+			elseif ($action == 'CAP' && $cmd == 'ls'){
+				$gw->send_cap_req($str);
+			}
+			
 			elseif ($action == '903' && $parc = "SASL authentication successful") { $gw->sendraw("CAP END"); }
 			elseif ($action == "001"){
 				hook::run("connect",array(
