@@ -70,6 +70,20 @@ hook::func("privmsg", function($u){
 	// return early if it's not a CTCP
 	if (!($params = IsCTCP($u['parc']))) { return; }
 	
+	//forward it to the ctcp h00k
+	hook::run("ctcp",array(
+					"nick" => $u['nick'],
+					"ident" => $u['ident'],
+					"hostmask" => $u['hostmask'],
+					"dest" => $u['dest'],
+					"params" => $params,
+					"mtags" => $u['mtags'])
+				);
+				
+});
+
+hook::func("ctcp", function($u){
+	global $ctcp,$me;
 	// grab their nick and where they sent it
 	$nick = $u['nick'];
 	$target = $u['dest'];
@@ -78,7 +92,7 @@ hook::func("privmsg", function($u){
 	$whereToSendTo = ($target != $me) ? $target : $nick;
 	
 	// splittem up
-	$parv = explode(" ",$params);
+	$parv = explode(" ",$u['params']);
 	
 	// if our CTCP is PING
 	if ($parv[0] == "PING"){
