@@ -65,9 +65,15 @@ while ($socket) {
 			}
 		}
 		elseif ($splittem[0] != 'PING') {
-
+			
+			//account for messagetags
+			$tagmsg = NULL;
+			if ($splittem[0][0] == '@'){
+				$tagmsg = $splittem[0];
+				$strippem = ltrim(str_replace($tagmsg,"",$strippem)," ");
+				$splittem = explode(" ",$strippem);
+			}
 			// Split our variables up into easy-to-use syntax imo tbh uno init anorl lmao
-
 			if (IsServer($splittem[0]) == 'true') { $nick = ltrim($splittem[0],':'); }
 			elseif (IsServer($splittem[0]) == 'false') {
 				$nick = get_string_between($splittem[0],':', '!');
@@ -130,6 +136,7 @@ while ($socket) {
 			
 			elseif ($action == 'CAP' && $cmd == 'ls'){
 				$gw->send_cap_req($str);
+				$gw->shout($str);
 			}
 			
 			elseif ($action == '903' && $parc = "SASL authentication successful") { $gw->sendraw("CAP END"); }
@@ -144,7 +151,8 @@ while ($socket) {
 					"ident" => $ident ?? 'NULL',
 					"hostmask" => $hostmask,
 					"dest" => $dest,
-					"parc" => $parc)
+					"parc" => $parc,
+					"mtags" => $tagmsg)
 				);
 			}
 			elseif ($action == "NOTICE"){ 
@@ -153,7 +161,8 @@ while ($socket) {
 					"hostmask" => $hostmask ?? 'NULL',
 					"ident" => $ident ?? 'NULL',
 					"dest" => $dest,
-					"parc" => $parc)
+					"parc" => $parc,
+					"mtags" => $tagmsg))
 				);
 			}
 			elseif ($action == "JOIN"){
@@ -161,7 +170,8 @@ while ($socket) {
 					"nick" => $nick,
 					"ident" => $ident,
 					"hostmask" => $hostmask,
-					"dest" => $dest)
+					"dest" => $dest,
+					"mtags" => $tagmsg))
 				);
 			}
 			elseif ($action == "PART") {
@@ -169,7 +179,8 @@ while ($socket) {
 					"nick" => $nick,
 					"ident" => $ident,
 					"hostmask" => $hostmask,
-					"dest" => $dest)
+					"dest" => $dest,
+					"mtags" => $tagmsg)
 				);
 			}
 			elseif ($action == "QUIT") {
@@ -177,7 +188,8 @@ while ($socket) {
 					"nick" => $nick,
 					"ident" => $ident,
 					"hostmask" => $hostmask,
-					"reason" => $parc)
+					"reason" => $parc,
+					"mtags" => $tagmsg)
 				);
 			}
 			elseif ($action == "MODE") {
@@ -186,7 +198,8 @@ while ($socket) {
 					"ident" => $ident,
 					"hostmask" => $hostmask,
 					"dest" => $dest,
-					"parc" => $parc)
+					"parc" => $parc,
+					"mtags" => $tagmsg)
 				);
 			}
 		}
