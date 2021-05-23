@@ -9,5 +9,6 @@ include "src/SQLClass.php";
 include "src/identifiers.php";
 include "src/oper.php";
 include "src/ctcp.php";
+include "src/botmode.php;"
 
 ?>
