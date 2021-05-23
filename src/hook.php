@@ -5,6 +5,7 @@ class hook {
 
     private static $actions = array(
         'privmsg' => array(),
+		'caps' => array(),
         'connect' => array(),
         'notice' => array(),
 		'join' => array(),
@@ -15,7 +16,10 @@ class hook {
 		'mode' => array(),
 		'kick' => array(),
 		'error' => array(),
-		'auth' => array()
+		'auth' => array(),
+		'ping' => array(),
+		'numeric' => array(),
+		'away' => array()
     );
 
     public static function run($hook, $args = array()) {

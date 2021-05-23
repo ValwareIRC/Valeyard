@@ -149,6 +149,14 @@ class Bot {
 	function hs($string){ $this->msg("HostServ ",$string); }
 	function ss($string){ $this->msg("StatServ ",$string); }
 	function ms($string){ $this->msg("MemoServ ",$string); }
+
+	/*  To set away:
+	** 		$this->away("Your away message");
+	**	or to set as not away anymore:
+	**		$this->away();
+	*/
+	function away($string){ $this->sendraw("AWAY $string"); }
+
 	
 	// ircv3
 	function msgreply($msgid,$dest,$string){

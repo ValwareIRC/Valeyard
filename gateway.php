@@ -162,7 +162,7 @@ while ($socket) {
 					"ident" => $ident ?? 'NULL',
 					"dest" => $dest,
 					"parc" => $parc,
-					"mtags" => $tagmsg))
+					"mtags" => $tagmsg)
 				);
 			}
 			elseif ($action == "JOIN"){
@@ -171,7 +171,7 @@ while ($socket) {
 					"ident" => $ident,
 					"hostmask" => $hostmask,
 					"dest" => $dest,
-					"mtags" => $tagmsg))
+					"mtags" => $tagmsg)
 				);
 			}
 			elseif ($action == "PART") {
@@ -202,6 +202,17 @@ while ($socket) {
 					"mtags" => $tagmsg)
 				);
 			}
+			// only available if away-notify is in your caps
+			elseif ($action == "AWAY") {
+				hook::run("away",array(
+					"nick" => $nick,
+					"ident" => $ident,
+					"hostmask" => $hostmask,
+					"dest" => $dest,
+					"parc" => $parc,
+					"mtags" => $tagmsg)
+				);
+			}
 		}
 		
 		// variable cleanup.
@@ -210,6 +221,7 @@ while ($socket) {
 		$parc = NULL; $dest = NULL;
 		$cmd = NULL; $str = NULL;
 		$fullstr = NULL; $action = NULL;
+		$tagmsg = NULL;
 		
 	}
 }
