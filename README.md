@@ -1,11 +1,14 @@
 # Valeyard IRC-SQL-GateWay
  
  A bot written in PHP which attempts to link IRC with SQL database, allowing for integration between platforms.
+ This bot is modular and works using hooks.
 
  So far this bot supports:
   - [Reading and writing to Anope SQLdb tables (Anope + db_sql/db_sql_live required)](https://github.com/ValwareIRC/Valeyard/tree/main/src/anope)
   - [Writing various stats and information from UnrealIRCd to its own SQL tables](https://github.com/ValwareIRC/Valeyard/tree/main/src/unrealircd)
   - [Reading and writing to WordPress SQLdb user tables (more to come)](https://github.com/ValwareIRC/Valeyard/tree/main/src/wordpress)
+  - TLS connectivity over IRC
+  - IRCv3 functionality (In Progress)- (message-tag, sasl)
 
 
 
