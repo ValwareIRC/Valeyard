@@ -76,7 +76,7 @@ class Bot {
 	function send_cap_req($caps){
 		
 		//glow-balls
-		global $me,$cf;
+		global $me,$cf,$sendCaps;
 		
 		// make sure we got a param, you mor0n
 		if ($caps !== NULL) {
@@ -103,7 +103,7 @@ class Bot {
 				}
 			}
 			// if we want any of the caps they got, pop the CAP in they ass
-			if ($sendCaps){ $this->sendraw("CAP REQ :$sendCaps"); return; }
+			if ($sendCaps){ $this->sendraw("CAP REQ :$sendCaps"); }
 			
 			// if  we didn't sasl, end the CAPs requestch
 			if (!$sasl) { $this->sendraw('CAP END'); }
@@ -149,6 +149,18 @@ class Bot {
 	function hs($string){ $this->msg("HostServ ",$string); }
 	function ss($string){ $this->msg("StatServ ",$string); }
 	function ms($string){ $this->msg("MemoServ ",$string); }
+	
+	// ircv3
+	function msgreply($msgid,$dest,$string){
+		global $sendCaps;
+		
+		// if they tried using this without having the right CAP
+		if (strpos($sendCaps,"message-tags") === false || !$msgid) { 
+			$this->shout("WARNING: Tried to send a message-tag reply without message-tags cap. Sending as normal message instead");
+			$this->msg($dest,$string);
+		}
+		$this->sendraw("@+draft/reply=".$msgid." PRIVMSG $dest :$string");
+	}
 	
 	
 	// For showing information on your screen famalam

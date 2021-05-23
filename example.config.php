@@ -46,7 +46,7 @@ $cf = [
 	'network' => 'NetworkName',
 
 	/* takes 'yes' or 'no'. 	When 'yes', attempts SASL. When 'no', attempts to identify with NickServ upon connect */
-	'caps' => 'message-tags sasl',
+	'caps' => 'account-notify account-tag extended-join chghost away-notify server-time cap-notify message-tags sasl',
 	
 	/* Uncomment the following line for your bot to set the bot mode on itself when it can */
 	//'botmode' => true,
