@@ -9,7 +9,6 @@ hook::func("numeric", function($u){
 	global $cf,$gw,$me;
 	
 	if (!isset($cf['botmode']) || $cf['botmode'] !== true) { return; }
-	echo $u['parc'];
 	if ($u['numeric'] == 005){
 			
 		$ISUPPORT = explode(" ",$u['parc']);
