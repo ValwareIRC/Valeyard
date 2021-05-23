@@ -46,7 +46,7 @@ $cf = [
 	'network' => 'NetworkName',
 
 	/* takes 'yes' or 'no'. 	When 'yes', attempts SASL. When 'no', attempts to identify with NickServ upon connect */
-	'sasl' => 'yes',
+	'caps' => 'message-tags sasl',
 
 	/* Uncomment the following line if the server uses a password */
 	//'serverpassword' => 'CrazyServerPassword123:D', /* Left commented out because don't have one yet lmoa */
