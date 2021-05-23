@@ -9,14 +9,16 @@ hook::func("numeric", function($u){
 	global $cf,$gw,$me;
 	
 	if (!isset($cf['botmode']) || $cf['botmode'] !== true) { return; }
+	
 	if ($u['numeric'] == 005){
 			
 		$ISUPPORT = explode(" ",$u['parc']);
 		
 		for ($i = 1; $ISUPPORT[$i]; $i++){
+			
 			if (strpos($ISUPPORT[$i],"BOT=") !== false) {
+			
 				$token = explode("=",$ISUPPORT[$i]);
-				
 				$gw->mode($me,$token[1]);
 			}
 		}
