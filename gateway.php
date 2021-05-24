@@ -1,7 +1,7 @@
 <?php
 include "src/module.php";
 include "gateway.config.php";
-global $cf,$sql,$gw,$sql,$sqlip,$sqluser,$sqlpass,$sqldb;
+global $cf,$sql,$gw,$sql,$sqlip,$sqluser,$sqlpass,$sqldb,$server,$port;
 
 // Server config
 $server = $cf['serverip'];
@@ -28,7 +28,7 @@ $sql = new SQL($sqlip,$sqluser,$sqlpass,$sqldb);
 
 while ($socket) {
 	while ($input = fgets($socket, 300)) {
-		if ($cf['debugmode'] == "on") { echo $input; }
+		if ($cf['debugmode'] == "on") { echo $input."\n"; }
 		flush();
 		
 		$strippem = ircstrip(str_replace('\n','',str_replace('\r','',$input)));
@@ -136,7 +136,6 @@ while ($socket) {
 			
 			elseif ($action == 'CAP' && $cmd == 'ls'){
 				$gw->send_cap_req($str);
-				$gw->shout($str);
 			}
 			
 			elseif ($action == '903' && $parc = "SASL authentication successful") { $gw->sendraw("CAP END"); }
@@ -211,6 +210,15 @@ while ($socket) {
 					"dest" => $dest,
 					"parc" => $parc,
 					"mtags" => $tagmsg)
+				);
+			}
+			elseif ($action == "CHGHOST"){
+				hook::run("chghost",array(
+					"nick" => $nick,
+					"ident" => $ident,
+					"hostmask" => $hostmask,
+					"dest" => $dest,
+					"parc" => $parc)
 				);
 			}
 		}
