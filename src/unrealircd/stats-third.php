@@ -34,6 +34,7 @@ hook::func("privmsg", function($u){
 	$gw->msg($target,"Topic: ".wwwchantopic($chan));
 	$gw->msg($target,"Created ".wwwchancreate($chan));
 	$gw->msg($target,"Users on $chan: ".wwwchanusercount($chan));
+});
 
 
 // Function to search the tables
