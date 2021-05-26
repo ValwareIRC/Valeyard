@@ -39,9 +39,9 @@ $cf = [
 	'opernick' => 'Oppah',
 	'operpass' => 'GangnamStyle123lmao',
 
-	/* Server details */
+	/* Server details. If you want to connect using SSL/TLS, prefix your servername with `ssl://` like `ssl://irc.valware.uk */ 
 	'serverip' => '127.0.0.1', /* Will probably work for you if you are running IRCd on the same server */
-	'port' => '6667', /* We don't have SSL yet lmao shuddup. We got sasl though. */
+	'port' => '6667', /* 6697 is the "default" secure port. */
 
 	'network' => 'NetworkName',
 
