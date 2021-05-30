@@ -8,6 +8,8 @@
 	
 	$me2->nick(); 		// will return your nick
 	$me2->account(); 	// will return your account
+	
+	$me2 will eventually be replacing $me
 
 */
 

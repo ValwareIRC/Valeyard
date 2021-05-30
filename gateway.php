@@ -26,6 +26,8 @@ start:
 $gw = new Bot($server,$port,$me,$myident,$mygecos,$caps,$mypass);
 $sql = new SQL($sqlip,$sqluser,$sqlpass,$sqldb);
 
+hook::run("preconnect", array('parc' => NULL));
+		
 while ($socket) {
 	while ($input = fgets($socket, 1000)) {
 		if ($cf['debugmode'] == "on") { echo $input."\n"; }
@@ -66,14 +68,13 @@ while ($socket) {
 		}
 		elseif ($splittem[0] != 'PING') {
 			
-			//account for message-tags
+			//account for messagetags
 			$tagmsg = NULL;
 			if ($splittem[0][0] == '@'){
 				$tagmsg = $splittem[0];
 				$strippem = ltrim(str_replace($tagmsg,"",$strippem)," ");
 				$splittem = explode(" ",$strippem);
 			}
-
 			// Split our variables up into easy-to-use syntax imo tbh uno init anorl lmao
 			if (IsServer($splittem[0]) == 'true') { $nick = ltrim($splittem[0],':'); }
 			elseif (IsServer($splittem[0]) == 'false') {
@@ -145,10 +146,7 @@ while ($socket) {
 					"nick" => $nick)
 				);
 			}
-			elseif ($action == "PRIVMSG"){
-				
-				if (strpos($tagmsg,$batch[$dest]) !== false && $cf['ignoreplayback'] == true){ goto end; }
-				
+			elseif ($action == "PRIVMSG"){ 
 				hook::run("privmsg",array(
 					"nick" => $nick,
 					"ident" => $ident ?? 'NULL',
@@ -159,8 +157,6 @@ while ($socket) {
 				);
 			}
 			elseif ($action == "NOTICE"){ 
-			
-				if (!isset($tagmsg) || strpos($tagmsg,$batch[$dest]) !== false && $cf['ignoreplayback'] == true){ goto end; }
 				hook::run("notice",array(
 					"nick" => $nick,
 					"hostmask" => $hostmask ?? 'NULL',
@@ -236,7 +232,7 @@ while ($socket) {
 				);
 			}
 		}
-		end:
+		
 		// variable cleanup.
 		$nick = NULL; $ident = NULL;
 		$hostmask = NULL; $parv = NULL;

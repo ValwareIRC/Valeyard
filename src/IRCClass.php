@@ -17,15 +17,7 @@ class Bot {
 	function __construct($server,$port,$nick,$ident,$gecos,$caps,$password) {
 		global $me;
 		$me = $nick;
-		hook::run("preconnect", array(
-			"nick" => $nick,
-			"server" => $server,
-			"port" => $port,
-			"ident" => $ident,
-			"gecos" => $gecos,
-			"caps" => $caps,
-			"password" => $password)
-		);
+		
 		// INITIALISING CONNECT SEQUENCE lmao
 		$this->connect($server,$port,$nick,$ident,$gecos,$caps,$password);
 	
@@ -33,7 +25,7 @@ class Bot {
 	private function connect($server,$port,$nick,$ident,$gecos,$caps,$password) {
 		
 		// Declare de globals;
-		global $socket,$sasl;
+		global $socket,$sasl,$sql;
 		
 		// Anything we wanna initialise before we connect
 		
@@ -90,6 +82,8 @@ class Bot {
 			
 			// separate de caps
 			$cap = explode(" ",$ours);
+			// Arrrr, well if it isn't Peter Pan's foe, Caps Hook...
+			hook::run("caps", array("caps" => $caps));
 			
 			// Welcome to CAPS Loop-Thru, can I take your order
 			for ($s = count($cap), $i = 0; $i < $s; $i++){
@@ -104,6 +98,8 @@ class Bot {
 			}
 			// if we want any of the caps they got, pop the CAP in they ass
 			if ($sendCaps){ $this->sendraw("CAP REQ :$sendCaps"); }
+			
+			
 			
 			// if  we didn't sasl, end the CAPs requestch
 			if (!$sasl) { $this->sendraw('CAP END'); }
