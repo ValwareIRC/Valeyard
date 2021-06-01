@@ -80,7 +80,7 @@ hook::func("notice", function($u){
 	if (IsAnopeUser($nick)){ return; }
 	
 	// if they are not a wordpress user, they are a guest, let them pass
-	if (WPIsUser($nick)){ return; }
+	if (!WPIsUser($nick)){ return; }
 	
 	// YOU SHALL NOT PASS
 	$gw->notice($nick,"This nickname is not protected yet. This means anyone can use it.");
