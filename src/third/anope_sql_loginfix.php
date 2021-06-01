@@ -58,39 +58,33 @@
 
 hook::func("notice", function($u){
 	
-	global $gw;
-	$gw->shout("Test 1");
+	global $gw,$ns;
 	// if is not a server notice, return
 	if (!IsServer($u['nick'])){ $gw->shout("true"); }
 	
-	$gw->shout("Test 2");
 	// explodem
 	$parv = explode(" ",$u['parc']);
 	
-	$gw->shout("Test 3");
 	// Grab nick of connecting user
 	$nick = $parv[3];
 	
-	$gw->shout("Test 4");
 	// check the notice is a connection notice (requires o-line)
 	if ($parv[0] !== "***"){ return; }
-	$gw->shout("Test 4.5");
-	if ($parv[1] !== "Client"){ $gw->shout("Test 4.5.5"); return; }
-	if ($parv[2] !== "connecting:"){ $gw->shout("Test 4.5.6"); return; }
+	if ($parv[1] !== "Client"){ return; }
+	if ($parv[2] !== "connecting:"){ return; }
 
-	$gw->shout("Test 5");
-	// if they have an account, set it in $account var
-	$account = ($parv[6] == "[account") ? substr_replace($parv[7], "", -1) : NULL;
-
-	$gw->shout("Test 6");
-	// if they have an account, let them pass
-	if ($account){ return; }
+	// if they logged in
+	if (strpos($u['parc'],"[account") !== false){ return; }
 	
-	$gw->shout("Test 7");
+	// if they are already an anope user, let them pass, NickServ will handle
+	if (IsAnopeUser($nick)){ return; }
+	
 	// if they are not a wordpress user, they are a guest, let them pass
 	if (WPIsUser($nick)){ return; }
 	
-	$gw->shout("Test 8");
-	$gw->notice($nick,"This username is registered. Please put in the password or choose another username.");
+	// YOU SHALL NOT PASS
+	$gw->notice($nick,"This nickname is not protected yet. This means anyone can use it.");
+	$gw->notice($nick,"To protect your nick, type the following using your WordPress password:");
+	$gw->notice($nick,"/ns identify <password>");
 	return;
 });
