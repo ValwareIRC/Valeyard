@@ -169,7 +169,7 @@ while ($socket) {
 			}
 			elseif ($action == "NOTICE"){ 
 			
-				if (!isset($tagmsg) || strpos($tagmsg,$batch[$dest]) !== false && $cf['ignoreplayback'] == true){ goto end; }
+				if (isset($tagmsg) || strpos($tagmsg,$batch[$dest]) !== false && $cf['ignoreplayback'] == true){ goto end; }
 				hook::run("notice",array(
 					"nick" => $nick,
 					"hostmask" => $hostmask ?? 'NULL',
