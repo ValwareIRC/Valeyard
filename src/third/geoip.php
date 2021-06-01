@@ -31,7 +31,7 @@ hook::func("notice", function($u){
 	$parv = explode(" ",$u['parc']);
 	
 	// the first two parvs
-	$connectNotice = $parv[1]." ".$parv[2];
+	$connectNotice = ($parv[2]) ? $parv[1]." ".$parv[2] : NULL;
 	
 	// check if first two parvs are telling us there is a client connecting, if not return
 	if ($connectNotice !== "Client connecting:"){ return; }
@@ -62,6 +62,7 @@ hook::func("notice", function($u){
 	-----------------------------------------------------------------------*/
 	
 	$gw->sendraw("CHGSWHOIS $user is connecting from $location");
+	return;
 	
 });
 	
