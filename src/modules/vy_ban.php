@@ -32,8 +32,11 @@ hook::func("privmsg", function($u){
 	// if it was not a privmsg for us, return
 	if ($u['dest'] !== $me){ return; }
 	
-	// if the command is not "BAN", it's not for us, return;
-	if (($cmd = $parv[0]) !== "ban"){ return; }
+	// if the command is not "BAN or MUTE", it's not for us, return;
+	$cmd = $parv[0];
+	if ($cmd === "ban"){ $mute = ""; }
+	elseif ($cmd === "mute"){ $mute == "~q:"; }
+	else { return; }
 	
 	// grab nick and transform it to wordpress *_user_level
 	$nick = $u['nick'];
@@ -83,8 +86,8 @@ hook::func("privmsg", function($u){
 	
 	$reason = str_replace($parv[0]." ".$parv[1]." ".$parv[2]." ".$parv[3]." ","",$u['parc']);	
 	
-	$gw->mode($chan,"+bbb ~t:" . $timer . ":" . $userToBan . "!*@* ~t:".$timer.":*!*@".hostname($userToBan)." ~t:".$timer.":~a:".account($userToBan));
-	$gw->kick($userToBan,$chan,$reason." [".$nick."]");
+	$gw->mode($chan,"+bbb ~t:" . $timer . ":".$mute.$userToBan . "!*@* ~t:".$timer.":".$mute."*!*@".hostname($userToBan)." ~t:".$timer.":".$mute."~a:".account($userToBan));
+	if ($mute == "") { $gw->kick($userToBan,$chan,$reason." [".$nick."]"); }
 	return;
 
 });
