@@ -126,6 +126,7 @@ class Bot {
 	function msg($dest,$string){ $this->sendraw("PRIVMSG ".$dest." :".$string); }
 	function act($dest,$string){ $this->msg($dest,"ACTION ".$string.""); }
 	function notice($dest,$string){ $this->sendraw("NOTICE ".$dest." :".$string); }
+	function kick($nick,$dest,$reason){ $this->sendraw("KICK $dest $nick $reason"); }
 	function globalnotice($string){ $this->sendraw("NOTICE $* ".$string); }
 	function gline($nick,$time,$reason){ $this->sendraw("GLINE ".$nick." ".$time." ".$reason); }
 	function kline($nick,$time,$reason){ $this->sendraw("KLINE ".$nick." ".$time." ".$reason); }
