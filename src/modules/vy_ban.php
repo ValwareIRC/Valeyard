@@ -62,10 +62,10 @@ hook::func("privmsg", function($u){
 		return;
 	}
 	
-	$user = $parv[2];
-	if (!IsOn($user,$chan)){
+	$userToBan = $parv[2];
+	if (!IsOn($userToBan,$chan)){
 		
-		$gw->notice($nick,"$user is not on that channel.");
+		$gw->notice($nick,"$userToBan is not on that channel.");
 		return;
 	}
 	
@@ -83,8 +83,8 @@ hook::func("privmsg", function($u){
 	
 	$reason = str_replace($parv[0]." ".$parv[1]." ".$parv[2]." ".$parv[3]." ","",$u['parc']);	
 	
-	$gw->mode($chan,"+bbb ~t:" . $timer . ":" . $user . "!*@* ~t:".$timer.":*!*@".hostname($user)." ~t:".$timer.":~a:".account($user));
-	$gw->kick($user,$chan,$reason." [".$nick."]");
+	$gw->mode($chan,"+bbb ~t:" . $timer . ":" . $userToBan . "!*@* ~t:".$timer.":*!*@".hostname($userToBan)." ~t:".$timer.":~a:".account($userToBan));
+	$gw->kick($userToBan,$chan,$reason." [".$nick."]");
 	return;
 
 });
