@@ -128,7 +128,11 @@ hook::func("notice", function($u){
 	// check the notice is a connection notice (requires o-line)
 	if ($parv[0] !== "***"){ return; }
 	if ($parv[1] !== "Client"){ return; }
-	if ($parv[2] !== "connecting:"){ return; }
+	if ($parv[2] === "exiting:"){
+		
+		vyAnopefixDelete($nick);
+	}
+	elseif ($parv[2] !== "connecting:"){ return; }
 	
 	// if they logged in
 	if (strpos($u['parc'],"[account") !== false){ return; }
