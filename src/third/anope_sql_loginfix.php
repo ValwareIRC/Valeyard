@@ -177,13 +177,13 @@ hook::func("notice", function($u){
 	
 	if (!IsAnopeUser($newNick)){
 	
-		vyAnopefixDelete(UUID($nick));
+		vyAnopefixDelete($nick);
 		return; 
 	}
 
 	if (WPIsUser(WPLogin2ID($nick))){
 	
-		vyAnopefixDelete(UUID($nick));
+		vyAnopefixDelete($nick);
 		return; 
 	}
 	
