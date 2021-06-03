@@ -2,15 +2,15 @@
 
 /*
 
-	BAN
+	BAN and MUTE
 
 	This module provides command BAN
 
 	Permission found on WordPress using usermeta wp_user_level
 	
-	Syntax: BAN #channel <nick> <duration-in-minutes> <reason>
+	Syntax: [BAN|MUTE] #channel <nick> <duration-in-minutes> <reason>
 	
-	Will ban nick, hostmask and account name if applicable
+	Will ban/mute nick, hostmask and account name if applicable
 	
 	Not a fantasy command
 	
