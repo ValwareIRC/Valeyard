@@ -3,15 +3,14 @@
 	create the "HELP" command and hook.
 	This module allows you to make your bot list its command when it gets a PM "help"
 	so if you want to make a module, you can easily specify the help shit in the module its for
-	in the list that this module provides
 
 
-	syntax for hooking into this help module:
+	syntax for hooking into help module:
 
 		hook::func("help, function($u){
-			global $gw;
-			
+
 			$gw->do_some_shit();
+
 		});
 
 */
@@ -27,7 +26,9 @@ hook::func("privmsg", function($u){
 	
 	// if it's not for us, return it
 	
-	if ($cmd !== "help" && $cmd !== "!help") { return; }
+	if ($cmd !== "help" && $cmd !== "!help"){ return; }
+	if ($cmd == "help" && $target !== $me){ return; }
+	if ($cmd == "!help" && $target == $me){ return; }
 	
 	if (!isset($parv[1])) {
 		$gw->notice($nick,"Listing commands available to you.");
