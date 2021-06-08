@@ -26,9 +26,7 @@ hook::func("privmsg", function($u){
 
     // if the user does not says "!coffee" ignore it and return safely
     if ($cmd !== "!coffee") { return; }
-    if (isset($parv[1])){ $targ = $parv[1]; }
-	
-	if (!$targ){ $targ = $nick; }
+    $targ = (isset($parv[1])) : $parv[1] ? $nick;
 
 
     // send the coffee using @+draft/reply=$msgid lmao
