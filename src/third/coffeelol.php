@@ -30,7 +30,7 @@ hook::func("privmsg", function($u){
 
 
     // send the coffee using @+draft/reply=$msgid lmao
-    $gw->msgreply($msgid,$target,"Here you go! *makes ".$targ." a coffee!...*");
+    $gw->actreply($msgid,$target,"makes ".$targ." a coffee, just the way they like it");
     return;
 });
 
