@@ -167,6 +167,58 @@ class Bot {
 		$this->sendraw("@+draft/reply=".$msgid." PRIVMSG $dest :$string");
 	}
 	
+	function msgreact($msgid,$dest,$string,$string2){
+		global $sendCaps;
+		
+		// if they tried using this without having the right CAP
+		if (strpos($sendCaps,"message-tags") === false || !$msgid) { 
+			$this->shout("WARNING: Tried to send a message-tag reply without message-tags cap. Aborting.");
+			return;
+		}
+		
+		$end = ($string2) ? "PRIVMSG $dest :$string2" : "TAGMSG $dest";
+		
+		$this->sendraw("@+draft/reply=".$msgid.";+draft/react=".$string." ".$end);
+	}
+	
+	function actreply($msgid,$dest,$string){
+		global $sendCaps;
+		
+		// if they tried using this without having the right CAP
+		if (strpos($sendCaps,"message-tags") === false || !$msgid) { 
+			$this->shout("WARNING: Tried to send a message-tag reply without message-tags cap. Sending as normal message instead");
+			$this->msg($dest,$string);
+		}
+		$this->sendraw("@+draft/reply=".$msgid." PRIVMSG $dest :".chr(1)."ACTION $string".chr(1));
+	}
+	
+	function actreact($msgid,$dest,$string,$string2){
+		global $sendCaps;
+		
+		// if they tried using this without having the right CAP
+		if (strpos($sendCaps,"message-tags") === false || !$msgid) { 
+			$this->shout("WARNING: Tried to send a message-tag reply without message-tags cap. Aborting.");
+			return;
+		}
+		
+		$end = ($string2) ? "PRIVMSG $dest :".chr(1)."ACTION $string2".chr(1) : "TAGMSG $dest";
+		
+		$this->sendraw("@+draft/reply=".$msgid.";+draft/react=".$string." ".$end);
+	}
+	
+	function react($msgid,$dest,$string,$string2){
+		global $sendCaps;
+		
+		// if they tried using this without having the right CAP
+		if (strpos($sendCaps,"message-tags") === false || !$msgid) { 
+			$this->shout("WARNING: Tried to send a message-tag reply without message-tags cap. Aborting.");
+			return;
+		}
+		
+		$end = "TAGMSG $dest";
+		
+		$this->sendraw("@+draft/reply=".$msgid.";+draft/react=".$string." ".$end);
+	}
 	
 	// For showing information on your screen famalam
 	function shout($string){
