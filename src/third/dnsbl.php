@@ -25,7 +25,7 @@ hook::func("notice", function($u){
 	
 	// check if they match a dnsbl, if they do, store the result in $dnsbl
 	// if not, let opers know that it was scanned and safe
-	if (!($dnsbl = dnslookup($ip))) { $gw->sendraw("GLOBOPS DNSBL SCAN $ip returned safe"); return; }
+	if (!($dnsbl = dnslookup($ip))) { return; }
 	
 	/* EXTERMINATE */
 	
@@ -35,8 +35,6 @@ hook::func("notice", function($u){
 	// high-grade extermination
 	$gw->gline($user,"24h","DNSBL hit: $dnsbl");
 	
-	// let the opers know
-	$gw->sendraw("GLOBOPS DNSBL SCAN: $user ($ip) matched $dnsbl");
 	return;
 });
 	
@@ -49,6 +47,7 @@ function dnslookup($ip){
         "dnsbl.dronebl.org",
 		"tor.dan.me.uk",
 		"torexit.dan.me.uk",
+		"xbl.spamhaus.org",
 		"exitnodes.tor.dnsbl.sectoor.de",	
     ];
 
