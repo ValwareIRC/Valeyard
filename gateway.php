@@ -244,6 +244,14 @@ while ($socket) {
 					"parc" => $dest." ".$parc)
 				);
 			}
+			elseif ($action == "NICK"){
+				hook::run("batch",array(
+					"nick" => $nick,
+					"ident" => $ident,
+					"hostmask" => $hostmask,
+					"parc" => $parc)
+				);
+			}
 		}
 		end:
 		// variable cleanup.

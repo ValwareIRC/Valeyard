@@ -22,7 +22,8 @@ class hook {
 		'numeric' => array(),
 		'away' => array(),
 		'chghost' => array(),
-		'batch' => array()
+		'batch' => array(),
+		'nick' => array(),
     );
 
     public static function run($hook, $args = array()) {
