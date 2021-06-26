@@ -133,4 +133,4 @@ hook::func("ctcp", function($u){
 
 ?>
 
-/* PeGaSuS rocks */
+/* PeGaSuS is awesome */
