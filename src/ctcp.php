@@ -5,7 +5,7 @@ global $ctcp;
 $ctcp = [
 
 	// the version lol
-	"version" => "Valeyard 0.4-beta",
+	"version" => "Valeyard v1.0",
 	
 	//ping is 1 for true or 0 for false, or choose your own (use "quoted string")
 	"ping" => 1,
