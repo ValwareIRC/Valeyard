@@ -4,11 +4,11 @@
 class hook {
 
     private static $actions = array(
-        'privmsg' => array(),
+		'privmsg' => array(),
 		'caps' => array(),
 		'preconnect' => array(),
-        'connect' => array(),
-        'notice' => array(),
+		'connect' => array(),
+		'notice' => array(),
 		'join' => array(),
 		'part' => array(),
 		'quit' => array(),
