@@ -9,7 +9,7 @@ hook::func("mode", function($u){
 	$target = $u['dest'];
 	if ($target != $me){ return; }
 	$parv = explode(" ",$u['parc']);
-	if ($parv[0] != "+r"){ return; }
+	if ($parv[0][0] == "+" && strpos($parv[0],"r" !== false){ return; }
 	//check the config
     $opernick = $cf['opernick'];
     $operpass = $cf['operpass'];
