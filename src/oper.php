@@ -9,13 +9,13 @@ hook::func("mode", function($u){
 	$target = $u['dest'];
 	if ($target != $me){ return; }
 	$parv = explode(" ",$u['parc']);
-	if ($parv[0][0] == "+" && strpos($parv[0],"r" !== false){ return; }
+	if ($parv[0][0] == "+" && strpos($parv[0],"r") == false){ return; }
 	//check the config
-	$opernick = $cf['opernick'];
-	$operpass = $cf['operpass'];
+    $opernick = $cf['opernick'];
+    $operpass = $cf['operpass'];
 
 	// if we had no oper credentials, return
-	if (!$opernick || !$operpass) {
+    if (!$opernick || !$operpass) {
 
 		// print in the terminal
         $gw->shout("Couldn't find oper credentials");
