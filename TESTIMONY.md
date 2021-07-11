@@ -1,1 +1,2 @@
-
+I have been using eggdrop for a while now and I didn't know that, with PHP, you could make a bot for IRC. So one night, I wrote to Valware asking for help to install it, and some help with extra modules. It has been very good because it's created things that I want to learn and PHP makes it easier than eggdrop.
+I suggest to anybody reading this to try Valeyard for your IRC. Soon we will have IRC services in PHP provided by Valware. - modmenager
