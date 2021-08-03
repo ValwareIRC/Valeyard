@@ -32,8 +32,8 @@ class Bot {
 		/* pre connect shit */
 		
 		// we are disabling verification for now until built upon more :>
-		// create ssl context
-		$context = stream_context_create(['ssl' => [
+		// create tls context
+		$context = stream_context_create(['tls' => [
 			'verify_peer' => false,
 			'ciphers' => 'ECDHE-ECDSA-AES256-GCM-SHA384'
 		]]);
