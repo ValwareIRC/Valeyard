@@ -187,7 +187,7 @@ class Bot {
 		// if they tried using this without having the right CAP
 		if (strpos($sendCaps,"message-tags") === false || !$msgid) { 
 			$this->shout("WARNING: Tried to send a message-tag reply without message-tags cap. Sending as normal message instead");
-			$this->msg($dest,$string);
+			$this->act($dest,$string);
 		}
 		$this->sendraw("@+draft/reply=".$msgid." PRIVMSG $dest :".chr(1)."ACTION $string".chr(1));
 	}
@@ -211,7 +211,7 @@ class Bot {
 		
 		// if they tried using this without having the right CAP
 		if (strpos($sendCaps,"message-tags") === false || !$msgid) { 
-			$this->shout("WARNING: Tried to send a message-tag reply without message-tags cap. Aborting.");
+			$this->shout("WARNING: Tried to send a message-tag react without message-tags cap. Aborting.");
 			return;
 		}
 		
