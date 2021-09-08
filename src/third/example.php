@@ -39,7 +39,6 @@ hook::func("privmsg", function($u){
 	
 	// if our command is not "!account", it is not for us, return early
 	if ($cmd != "!account") { return; }
-	$gw->shout("lol");
 	
 	// check if the user asking for the account information is logged into nickserv
 	// if not, return
